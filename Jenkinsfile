@@ -1,19 +1,27 @@
 pipeline {
-agent any
-    
+  agent any
+
   tools {
-    maven 'maven-3.9.6' 
+    maven 'maven-3.9.6'
   }
   stages {
-    stage ('Build') {
+
+   stage('Test') {
       steps {
-        sh 'mvn clean package'
+        sh 'mvn test'
+      }
+    }   
+      
+    stage('Build') {
+      steps {
+        sh 'mvn clean install -Dmaven.test.skip=true'
       }
     }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+      
+    stage('Deploy') {
+      steps {
+        echo 'Deploying....'
+      }
     }
+  }
 }
