@@ -10,7 +10,27 @@ pipeline {
       steps {
         sh 'mvn test'
       }
-    } 
+    }
+
+       stage('Checkmarx Scan') {
+            steps {
+                script {
+                    def cxScan = checkmarx(
+                        projectName: 'YourProjectName',
+                        sourceFolder: '.',
+                        sourceEncoding: 'UTF-8',
+                        incremental: true,
+                        isFreestyleProject: false,
+                        vulnerabilityThreshold: 'High',
+                        buildStep: true,
+                        generatePdfReport: true,
+                        includeOpenSourceFolders: false
+                    )
+                }
+
+                echo "Checkmarx Scan ID: ${cxScan.id}"
+            }
+        }
 
     stage('SonarQube Analysis') {
             steps {
