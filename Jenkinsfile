@@ -1,6 +1,9 @@
 pipeline {
   agent any
-
+  environment {
+    CI = true
+    ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
+  }
   tools {
     maven 'maven-3.9.6'
   }
@@ -26,6 +29,19 @@ pipeline {
         sh 'mvn clean install -Dmaven.test.skip=true'
       }
     }
+
+    stage('Upload to Artifactory') {
+      agent {
+        docker {
+          image 'releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0' 
+          reuseNode true
+        }
+      }
+      steps {
+        sh 'jfrog rt upload --url http://192.168.0.100:8882/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/*.jar factorian/'
+      }
+    }
+  
       
     stage('Deploy') {
       steps {
