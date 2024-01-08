@@ -3,6 +3,7 @@ pipeline {
 
   tools {
     maven 'maven-3.9.6'
+    sonarqube 'sonarqube-10.3'
   }
   stages {
 
@@ -15,9 +16,9 @@ pipeline {
 
    stage('SonarQube Analysis') {
             steps {
-              withSonarQubeEnv("sonarqube-10.3"){
+              withSonarQubeEnv("sonarqube"){
               sh 'mvn sonar:sonar'
-              }
+               }
               }
         }
       
