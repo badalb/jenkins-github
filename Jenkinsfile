@@ -30,13 +30,13 @@ pipeline {
         sh 'mvn clean install -Dmaven.test.skip=true'
       }
     }
-     stage('Install JFrog CLI') {
-            steps {
-                script {
-                    tool 'jfrog'
-                }
-            }
-        }
+     // stage('Install JFrog CLI') {
+     //        steps {
+     //            script {
+     //                tool 'jfrog'
+     //            }
+     //        }
+     //    }
 
     stage('Upload to Artifactory') {
       steps {
