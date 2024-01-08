@@ -6,6 +6,7 @@ pipeline {
   }
   tools {
     maven 'maven-3.9.6'
+    jfrog 'jfrog'
   }
   stages {
 
@@ -39,7 +40,8 @@ pipeline {
 
     stage('Upload to Artifactory') {
       steps {
-        sh 'jf rt upload --url http://192.168.0.100:8882/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/*.jar factorian/'
+        //sh 'jf rt upload --url http://192.168.0.100:8882/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/*.jar factorian/'
+        jf 'rt u target/*.jar factorian/'
       }
     }
   
