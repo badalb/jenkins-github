@@ -13,9 +13,9 @@ pipeline {
     }
 
 
-    stage('SonarQube Analysis') {
+   stage('SonarQube Analysis') {
             steps {
-               echo 'Deploying....'
+              sh 'mvn sonar:sonar'
               }
         }
       
