@@ -15,7 +15,7 @@ pipeline {
 
    stage('SonarQube Analysis') {
             steps {
-              sh 'mvn sonar:sonar -Dsonar.projectKey=jenkins-test -Dsonar.host.url=http://192.168.0.100:9999/'
+              sh 'mvn sonar:sonar'
               }
         }
       
