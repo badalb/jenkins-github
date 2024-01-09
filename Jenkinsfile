@@ -30,14 +30,6 @@ pipeline {
         sh 'mvn clean install -Dmaven.test.skip=true'
       }
     }
-     // stage('Install JFrog CLI') {
-     //        steps {
-     //            script {
-     //                tool 'jfrog'
-     //            }
-     //        }
-     //    }
-
     stage('Upload to Artifactory') {
       steps {
         jf 'rt u --url http://192.168.0.100:8882/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/*.jar factorian/'
