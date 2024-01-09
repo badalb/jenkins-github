@@ -15,8 +15,6 @@ pipeline {
         sh 'mvn test'
       }
     }
-
-
    stage('SonarQube Analysis') {
             steps {
             withSonarQubeEnv("sonarqube-10.3"){
